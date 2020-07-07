@@ -1,0 +1,47 @@
+<head>
+	<meta charset="utf-8">
+	<title>Part 7 - States</title>
+	<script crossorigin src="lib/react.development.js"></script>
+	<script crossorigin src="lib/react-dom.development.js"></script>
+	<script crossorigin src="lib/babel.min.js"></script>
+	<link rel="stylesheet" href="lib/all_styles.css">
+</head>
+
+<body>
+	<noscript>You need to enable JavaScript to run this app!</noscript>
+	<div id="app"></div>
+
+	<script type="text/babel">
+		class Checkbox extends React.Component {
+			constructor(props) {
+				super(props)
+
+				this.state = {
+					checked: true
+				}
+
+				this.handleChecked = this.handleChecked.bind(this)
+			}
+
+			handleChecked() {
+				this.setState({checked: !this.state.checked})
+			}
+
+			render() {
+				var msg = this.state.checked ? 'checked' : 'unchecked'
+
+				return(
+					<div>
+						<h3>Checkbox is { msg }</h3>
+						<input type="checkbox" onChange={ this.handleChecked } defaultChecked={ this.state.checked }/>
+					</div>
+				)
+			}
+		}
+
+		ReactDOM.render(
+			<Checkbox/>,
+			document.getElementById('app')
+		)
+	</script>
+</body>

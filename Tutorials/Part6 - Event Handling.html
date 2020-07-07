@@ -1,0 +1,44 @@
+<head>
+	<meta charset="utf-8">
+	<title>Part 6 - Event Handling</title>
+	<script crossorigin src="lib/react.development.js"></script>
+	<script crossorigin src="lib/react-dom.development.js"></script>
+	<script crossorigin src="lib/babel.min.js"></script>
+	<link rel="stylesheet" href="lib/all_styles.css">
+</head>
+
+<body>
+	<noscript>You need to enable JavaScript to run this app!</noscript>
+	<div id="app"></div>
+
+	<script type="text/babel">
+		class Comment extends React.Component {
+			edit() {
+				alert('Editing comment')
+			}
+
+			remove() {
+				alert('Removing comment')
+			}
+
+			render() {
+				return(
+					<div className="comment-container">
+						<div className="comment-text">{ this.props.children }</div>
+						<button onClick={ this.edit } className="btn-primary">Edit</button>
+						<button onClick={ this.remove } className="btn-danger">Remove</button>
+					</div>
+				)
+			}
+		}
+
+		ReactDOM.render(
+			<div className="board">
+				<Comment>Hey my Name is Sourav</Comment>
+				<Comment>Beans</Comment>
+				<Comment>Candies</Comment>
+			</div> , document.getElementById('app')
+		)
+
+	</script>
+</body>

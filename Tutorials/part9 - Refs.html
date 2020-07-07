@@ -1,0 +1,90 @@
+<head>
+	<meta charset="utf-8">
+	<title>Part 9 - Revs</title>
+	<script crossorigin src="lib/react.development.js"></script>
+	<script crossorigin src="lib/react-dom.development.js"></script>
+	<script crossorigin src="lib/babel.min.js"></script>
+	<link rel="stylesheet" href="lib/all_styles.css">
+</head>
+
+<body>
+	<noscript>You need to enable JavaScript to run this app!</noscript>
+	<div id="app"></div>
+
+	<script type="text/babel">
+		class Comment extends React.Component {
+			constructor(props) {
+				super(props)
+
+				this.state = {
+					editing: false
+				}
+
+				this.edit = this.edit.bind(this)
+				this.save = this.save.bind(this)
+				this.renderNormal = this.renderNormal.bind(this)
+				this.renderForm = this.renderForm.bind(this)
+			}
+
+			edit() {
+				this.setState({ editing: true })
+			}
+
+			save() {
+				var val = this.refs.newText.value
+				console.log(val)
+				this.setState({ editing: false })
+			}
+
+			remove() {
+				alert('Removing Comment')
+			}
+
+			renderNormal() {
+				return(
+					<div className="commentContainer">
+						<div className="commentText">{this.props.children}</div>
+						<button onClick={this.edit} className="btn-primary">Edit</button>
+						<button onClick={this.remove} className="btn-danger">Remove</button>
+					</div>
+				)
+			}
+
+			renderForm() {
+				return(
+					<div>
+						<textarea ref="newText" defaultValue={ this.props.children }></textarea>
+						<button onClick={this.save} className="btn-success">Save</button>
+					</div>
+				)
+			}
+
+			render() {
+				if(this.state.editing) {
+					return(
+						this.renderForm()
+					)
+				} else {
+					return(
+						this.renderNormal()
+					)
+				}
+			}
+		}
+
+		ReactDOM.render(
+			<div>
+				<Comment>Hey my name is Sourav</Comment>
+				<Comment>Hey my name is Sourav</Comment>
+				<Comment>Hey my name is Sourav</Comment>
+				<Comment>Hey my name is Sourav</Comment>
+				<Comment>Hey my name is Sourav</Comment>
+				<Comment>Hey my name is Sourav</Comment>
+				<Comment>Hey my name is Sourav</Comment>
+				<Comment>Hey my name is Sourav</Comment>
+				<Comment>Hey my name is Sourav</Comment>
+			</div>,
+			document.getElementById('app')
+		)
+	</script>
+</body>

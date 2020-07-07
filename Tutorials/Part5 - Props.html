@@ -1,0 +1,33 @@
+<head>
+	<meta charset="utf-8">
+	<title>Part 5 - Props | Properties</title>
+	<script crossorigin src="lib/react.development.js"></script>
+	<script crossorigin src="lib/react-dom.development.js"></script>
+	<script crossorigin src="lib/babel.min.js"></script>
+</head>
+
+<body>
+	<noscript>You need to enable JavaScript to run this app!</noscript>
+	<div id="app"></div>
+
+	<script type="text/babel">
+		class Movie extends React.Component {
+			render() {
+				return(
+					<div>
+						<h1>{ this.props.title }</h1>
+						<h6>{ this.props.genre || 'none' }</h6>
+					</div>
+				)
+			}
+		}
+
+		ReactDOM.render(
+			<div>
+				<Movie title="Avatar" genre="action"/>
+				<Movie title="Avatar" genre="romance" />
+				<Movie title="Avatar" />
+			</div>, document.getElementById('app')
+		)
+	</script>
+</body>

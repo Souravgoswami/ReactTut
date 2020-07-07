@@ -1,0 +1,45 @@
+<head>
+	<meta charset="utf-8">
+	<title>Part 4 - Rendering Multiple Components</title>
+	<script crossorigin src="lib/react.development.js"></script>
+	<script crossorigin src="lib/react-dom.development.js"></script>
+	<script crossorigin src="lib/babel.min.js"></script>
+</head>
+
+<body>
+	<noscript>You need to enable JavaScript to run this app!</noscript>
+	<div id="example"></div>
+	<div id="example2"></div>
+
+	<script type="text/babel">
+
+		class Bacon extends React.Component {
+			render() {
+				return(
+					<div className="fakeclass" className="realclass">
+						<h1>Hello Bacon Lovers!</h1>
+						Wrap me inside div otherwise you get errors!
+						<p>I am some sample</p>
+					</div>
+				)
+			}
+		}
+
+		ReactDOM.render(<center><h1>Hello!</h1></center>, document.getElementById('example'))
+		ReactDOM.render(<Bacon/>, document.getElementById('example2'))
+
+		ReactDOM.render(
+			<div>
+				<Bacon/>
+				<Bacon/>
+				<Bacon/>
+				<Bacon/>
+				<Bacon/>
+				<Bacon/>
+				<Bacon/>
+			</div>,
+
+			document.getElementById('example')
+		)
+	</script>
+</body>

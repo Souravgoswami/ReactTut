@@ -1,0 +1,140 @@
+<head>
+	<meta charset="utf-8">
+	<title>Part 10 - Multiple Child Components</title>
+	<script crossorigin src="lib/react.development.js"></script>
+	<script crossorigin src="lib/react-dom.development.js"></script>
+	<script crossorigin src="lib/babel.min.js"></script>
+	<link rel="stylesheet" href="lib/all_styles.css">
+</head>
+
+<body>
+	<noscript>You need to enable JavaScript to run this app!</noscript>
+	<div id="app"></div>
+
+	<script type="text/babel">
+		class Comment extends React.Component {
+			constructor(props) {
+				super(props)
+
+				this.state = {
+					editing: false
+				}
+
+				this.edit = this.edit.bind(this)
+				this.save = this.save.bind(this)
+				this.renderNormal = this.renderNormal.bind(this)
+				this.renderForm = this.renderForm.bind(this)
+				this.remove = this.remove.bind(this)
+			}
+
+			edit() {
+				this.setState({ editing: true })
+			}
+
+			save() {
+				var val = this.refs.newText.value
+				this.setState({ editing: false })
+				this.props.updateCommentText(this.refs.newText.value, this.props.index)
+			}
+
+			remove() {
+				this.props.deleteFromBoard(this.props.index)
+			}
+
+			renderNormal() {
+				return(
+					<div className="commentContainer">
+						<div className="commentText">{this.props.children}</div>
+						<button onClick={this.edit} className="btn-primary">Edit</button>
+						<button onClick={this.remove} className="btn-danger">Remove</button>
+					</div>
+				)
+			}
+
+			renderForm() {
+				return(
+					<div>
+						<textarea ref="newText" defaultValue={ this.props.children }></textarea>
+						<button onClick={this.save} className="btn-success">Save</button>
+					</div>
+				)
+			}
+
+			render() {
+				if(this.state.editing) {
+					return(
+						this.renderForm()
+					)
+				} else {
+					return(
+						this.renderNormal()
+					)
+				}
+			}
+		}
+
+		class Board extends React.Component {
+			constructor(props) {
+				super(props)
+
+				this.state = {
+					comments: [
+						'I like Pasta',
+						'Want to get ice cream?',
+						'Ok, we have enough comments now'
+					]
+				}
+
+				this.removeComment = this.removeComment.bind(this)
+				this.updateComment = this.updateComment.bind(this)
+				this.eachComment = this.eachComment.bind(this)
+				this.add = this.add.bind(this)
+			}
+
+			add(text) {
+				var arr = this.state.comments
+				arr.push(text)
+				this.setState({comments: arr})
+			}
+
+			removeComment(i) {
+				console.log(arr)
+				var arr = this.state.comments
+				arr.splice(i, 1)
+				this.setState({comments: arr})
+			}
+
+			updateComment(newText, i) {
+				console.log(`Updating Comment: ${i}`)
+				var arr = this.state.comments
+				arr[i] = newText
+				this.setState({comments: arr})
+			}
+
+			eachComment(item, i) {
+				return(
+					<Comment key={i} index={i} updateCommentText={this.updateComment} deleteFromBoard={this.removeComment}>
+						{item}
+					</Comment>
+				)
+			}
+
+			render() {
+				return(
+					<div>
+						<button className="btn-info create" onClick={this.add.bind(null, 'Pizza')}>Add New</button>
+						<div className="board">
+							{
+								this.state.comments.map(this.eachComment)
+							}
+						</div>
+					</div>
+				)
+			}
+		}
+
+		ReactDOM.render(
+			<Board/>, document.getElementById('app')
+		)
+	</script>
+</body>

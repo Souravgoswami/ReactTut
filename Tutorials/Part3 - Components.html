@@ -1,0 +1,24 @@
+<head>
+	<meta charset="utf-8">
+	<title>Part 3 - Components</title>
+	<script crossorigin src="lib/react.development.js"></script>
+	<script crossorigin src="lib/react-dom.development.js"></script>
+	<script crossorigin src="lib/babel.min.js"></script>
+</head>
+
+<body>
+	<noscript>You need to enable JavaScript to run this app!</noscript>
+	<div id="example"></div>
+	<div id="example2"></div>
+
+	<script type="text/babel">
+		class Bacon extends React.Component{
+			render() {
+				return <h3>This is a simple component</h3>
+			}
+		}
+
+		ReactDOM.render(<center><h1>Hello!</h1></center>, document.getElementById('example'))
+		ReactDOM.render(<Bacon/>, document.getElementById('example2'))
+	</script>
+</body>
